@@ -1,6 +1,6 @@
 import json
-from tkinter import Place
-import tensorflow as tf
+# from tkinter import Place
+# import tensorflow as tf
 from PIL import Image
 import numpy as np
 from flask import Blueprint, request, Response, jsonify, request_started
@@ -8,51 +8,51 @@ import io
 from utils import db_read, db_write, token_required
 
 
-def load_model():
+# def load_model():
 	
-	global model
-	model = tf.keras.applications.ResNet50(weights="imagenet")
+# 	global model
+# 	model = tf.keras.applications.ResNet50(weights="imagenet")
 
-def prepare_dataset(image, target):
+# def prepare_dataset(image, target):
 
-	if image.mode != "RGB":
-		image= image.convert("RGB")
+# 	if image.mode != "RGB":
+# 		image= image.convert("RGB")
 
-	image = image.resize(target)
-	image = tf.keras.preprocessing.image.img_to_array(image)
-	image = np.expand_dims(image, axis=0)
-	image = tf.keras.applications.imagenet_utils.preprocess_input(image)
+# 	image = image.resize(target)
+# 	image = tf.keras.preprocessing.image.img_to_array(image)
+# 	image = np.expand_dims(image, axis=0)
+# 	image = tf.keras.applications.imagenet_utils.preprocess_input(image)
 
-	return image
+# 	return image
 
 detection = Blueprint("detection", __name__)
 
-@detection.route("/", methods=["POST"])
-@token_required
-def predict():
+# @detection.route("/", methods=["POST"])
+# @token_required
+# def predict():
 
-	data = {"success":False}
+# 	data = {"success":False}
 
-	if request.method == "POST":
-		if request.files.get("image"):
+# 	if request.method == "POST":
+# 		if request.files.get("image"):
 
-			image = request.files["image"].read()
-			image = Image.open(io.BytesIO(image))
+# 			image = request.files["image"].read()
+# 			image = Image.open(io.BytesIO(image))
 
-			image = prepare_dataset(image, target=(224,224))
+# 			image = prepare_dataset(image, target=(224,224))
 
-			preds = model.predict(image)
-			results = tf.keras.applications.imagenet_utils.decode_predictions(preds)
+# 			preds = model.predict(image)
+# 			results = tf.keras.applications.imagenet_utils.decode_predictions(preds)
 
-			data["predictions"] = []
+# 			data["predictions"] = []
 
-			for (_, label, prob) in results[0]:
-				r = {"label": label, "probablity": float(prob)}
-				data["predictions"].append(r)
+# 			for (_, label, prob) in results[0]:
+# 				r = {"label": label, "probablity": float(prob)}
+# 				data["predictions"].append(r)
 
-			data["success"] = True
+# 			data["success"] = True
 
-	return jsonify(data)
+# 	return jsonify(data)
 
 @detection.route("/dummy/guideme", methods=["POST"])
 @token_required

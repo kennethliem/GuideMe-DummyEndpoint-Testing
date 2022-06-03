@@ -5,7 +5,7 @@ black
 Click
 Flask
 Flask-Cors
-flask-jwt
+flask-jwt==0.3.2
 Flask-MySQL
 Flask-MySQLdb
 isort
@@ -16,7 +16,7 @@ MarkupSafe
 mccabe
 mysqlclient
 pathspec
-PyJWT
+PyJWT==1.4.2
 pylint
 PyMySQL
 python-dotenv
@@ -26,6 +26,5 @@ toml
 typed-ast
 werkzeug
 wrapt
-tensorflow
 numpy
 pillow
