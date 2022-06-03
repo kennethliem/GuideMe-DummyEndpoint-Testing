@@ -80,7 +80,6 @@ def dummyEndpointGuideMe():
 	return jsonify(data)
 
 @detection.route("/dummy/chanity", methods=["POST"])
-@token_required
 def dummyEndpointChanity():
 
 	data = {
